@@ -15,9 +15,12 @@ class TencenthrPipeline(object):
 
 class PositionPipeline(object):
 	def __init__(self):
+		# 数据库对象
 		self.mongo = MongoTencent()
 
 	def process_item(self, item, spider):
+		# 过滤空白数据
 		if item['job_name'] and item['job_type'] and item['job_city'] and item['job_number'] and item['job_time']:
 			print(dict(item))
+			# 存入数据库
 			self.mongo.insert(dict(item))
